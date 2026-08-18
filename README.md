@@ -36,7 +36,7 @@ re-links.
 | Area | Details |
 | --- | --- |
 | **Zsh theme** | [agnoster](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#agnoster). Needs a Powerline/Nerd Font to render correctly — `install.sh` installs the font file automatically, but you pick it in your terminal's preferences once per machine. See [Font setup](#font-setup). |
-| **Zsh plugins** | `git`, [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-completions](https://github.com/zsh-users/zsh-completions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) (vim-style command-line editing), [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) (↑/↓ filters history by what you've typed). Load order matters — see the comment in `lib/01-plugins.zsh`. |
+| **Zsh plugins** | `git`, [zsh-completions](https://github.com/zsh-users/zsh-completions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) (vim-style command-line editing), [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) (↑/↓ filters history by what you've typed). Load order matters — see the comment in `lib/01-plugins.zsh`. |
 | **Shell tooling** | [zoxide](https://github.com/ajeetdsouza/zoxide) (`z`/`zi` — smarter `cd`), [fzf](https://github.com/junegunn/fzf) (`Ctrl+T` files, `Alt+C` cd), and [atuin](https://github.com/atuinsh/atuin) (`Ctrl+R` — SQLite-backed searchable history; deliberately loaded after fzf so it wins that binding, and with `--disable-up-arrow` so up/down stay on zsh-history-substring-search), all wired up in `lib/11-completions.zsh`. Atuin's config/data live outside this repo (`~/.config/atuin`, `~/.local/share/atuin`) and aren't tracked here — same as any other machine-local state; sync/login is opt-in (`atuin register`/`login`), not set up by this repo. [eza](https://github.com/eza-community/eza) and [bat](https://github.com/sharkdp/bat) are aliased over `ls`/`cat` in `lib/20-aliases.zsh`; [fd](https://github.com/sharkdp/fd) and [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`) are installed but deliberately not aliased over `find`/`grep` — their flags aren't compatible, use them directly. |
 | **Solarized** | A terminal color scheme (not a zsh theme), so it pairs with agnoster rather than replacing it. Vendored at `terminal/solarized-dark.itermcolors` / `terminal/solarized-light.itermcolors` (from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)). Import one into iTerm2 manually: **Preferences > Profiles > Colors > Color Presets > Import...**. |
 | **Git** | `git/gitconfig` — identity, aliases (`st`, `co`, `br`, `ci`, `lg`), sane defaults (`main` as default branch, `osxkeychain` credential helper). Supports a `~/.gitconfig.local` include for per-machine overrides (e.g. a work email) — gitignored, same idea as `lib/local.zsh` on the zsh side. |
@@ -55,10 +55,16 @@ Open a new terminal (or `exec zsh`) after pulling these changes so the config in
 - It only knows directories you've already `cd`'d into normally — needs a bit of regular use to build up history.
 
 **fzf — fuzzy finder** (bound in `lib/11-completions.zsh`)
-- `Ctrl+R` — fuzzy-search shell history instead of pressing ↑ repeatedly.
 - `Ctrl+T` — fuzzy-search files/dirs under the cwd, inserts the picked path at the cursor.
 - `Alt+C` — fuzzy-search subdirectories and `cd` straight into the pick.
 - Type to filter, arrows to move, `Enter` to select, `Esc` to cancel.
+- `Ctrl+R` is atuin's, not fzf's — see below.
+
+**atuin — searchable shell history** (bound in `lib/11-completions.zsh`, owns `Ctrl+R`)
+- `Ctrl+R` — full-screen fuzzy search over your entire history (SQLite-backed, not just the current session's `HISTFILE`), with filters for directory/host/session.
+- Up/down arrows are untouched — still zsh-history-substring-search (`lib/14-bindings.zsh`), not atuin's inline search.
+- Sync across machines is opt-in and not configured by this repo — run `atuin register` (new account) or `atuin login` (existing account) yourself if you want it. Local-only works out of the box with no account.
+- Config lives at `~/.config/atuin/config.toml`, data at `~/.local/share/atuin/` — both machine-local, not tracked in this repo.
 
 **eza — replaces `ls`** (aliased in `lib/20-aliases.zsh`)
 - `ls` — grouped-directories-first listing.

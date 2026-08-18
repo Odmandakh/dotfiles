@@ -11,7 +11,6 @@
 plugins=(
   zsh-vi-mode
   git
-  zsh-autosuggestions
   zsh-completions
   zsh-syntax-highlighting
   zsh-history-substring-search
