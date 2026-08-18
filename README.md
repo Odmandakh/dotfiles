@@ -40,7 +40,7 @@ re-links.
 | **Git** | `git/gitconfig` — identity, aliases (`st`, `co`, `br`, `ci`, `lg`), sane defaults (`main` as default branch, `osxkeychain` credential helper). Supports a `~/.gitconfig.local` include for per-machine overrides (e.g. a work email) — gitignored, same idea as `lib/local.zsh` on the zsh side. |
 | **tmux** | `tmux/tmux.conf` — mouse mode, vi copy-mode keys, big scrollback, minimal status bar. |
 | **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, including security/pentesting tooling and personal apps. Tracked for reproducibility, but only installed if you say yes at the `install.sh` prompt, or run it explicitly: `brew bundle --file=brew/Brewfile.personal`. Keep work-laptop-unsafe stuff out of the core file. Set `SKIP_BREW=1` to skip this step entirely. |
-| **macOS defaults** | `macos/defaults.sh` — Finder (show hidden files/extensions, path+status bar), fast key repeat, tap-to-click, Dock auto-hide, screenshots to `~/Screenshots`. Never runs automatically; `install.sh` prompts, or run it directly any time: `./macos/defaults.sh`. |
+| **macOS defaults** | `macos/defaults.sh` — Finder (show hidden files/extensions, path+status bar), fast key repeat, tap-to-click, disabled natural (reversed) scrolling, Dock auto-hide, screenshots to `~/Screenshots`. Never runs automatically; `install.sh` prompts, or run it directly any time: `./macos/defaults.sh`. |
 
 ## Font setup
 

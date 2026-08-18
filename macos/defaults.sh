@@ -17,15 +17,15 @@ set -euo pipefail
 info() { printf '\033[1;34m==>\033[0m %s\n' "$1"; }
 
 info "Finder"
+# Show the path bar and status bar at the bottom of Finder windows.
+defaults write com.apple.finder ShowPathbar -bool false
+defaults write com.apple.finder ShowStatusBar -bool true
 # Show all filename extensions, not just the ones Finder feels like.
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Show hidden (dotfile) files.
-defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool false
 # Show the full path in the Finder window title bar.
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-# Show the path bar and status bar at the bottom of Finder windows.
-defaults write com.apple.finder ShowPathbar -bool true
-defaults write com.apple.finder ShowStatusBar -bool true
 # Default to list view (icnv/clmv/glyv/Nlsv are the other view codes).
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
@@ -41,6 +41,11 @@ info "Trackpad"
 # Tap to click, instead of requiring a physical click.
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+info "Scrolling"
+# Disable "natural" (reversed) scrolling — scroll down moves the page down,
+# scroll up moves it up, like a traditional mouse wheel.
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 info "Dock"
 # Auto-hide, and remove the show/hide delay so it doesn't feel sluggish.
