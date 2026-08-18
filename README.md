@@ -35,11 +35,12 @@ re-links.
 | Area | Details |
 | --- | --- |
 | **Zsh theme** | [agnoster](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#agnoster). Needs a Powerline/Nerd Font to render correctly — `install.sh` installs the font file automatically, but you pick it in your terminal's preferences once per machine. See [Font setup](#font-setup). |
-| **Zsh plugins** | `git`, [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-completions](https://github.com/zsh-users/zsh-completions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting). |
+| **Zsh plugins** | `git`, [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions), [zsh-completions](https://github.com/zsh-users/zsh-completions), [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting), [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) (vim-style command-line editing), [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) (↑/↓ filters history by what you've typed). Load order matters — see the comment in `lib/01-plugins.zsh`. |
+| **Shell tooling** | [zoxide](https://github.com/ajeetdsouza/zoxide) (`z`/`zi` — smarter `cd`) and [fzf](https://github.com/junegunn/fzf) (`Ctrl+R` history, `Ctrl+T` files, `Alt+C` cd), wired up in `lib/11-completions.zsh`. [eza](https://github.com/eza-community/eza) and [bat](https://github.com/sharkdp/bat) are aliased over `ls`/`cat` in `lib/20-aliases.zsh`; [fd](https://github.com/sharkdp/fd) and [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`) are installed but deliberately not aliased over `find`/`grep` — their flags aren't compatible, use them directly. |
 | **Solarized** | A terminal color scheme (not a zsh theme), so it pairs with agnoster rather than replacing it. Vendored at `terminal/solarized-dark.itermcolors` / `terminal/solarized-light.itermcolors` (from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)). Import one into iTerm2 manually: **Preferences > Profiles > Colors > Color Presets > Import...**. |
 | **Git** | `git/gitconfig` — identity, aliases (`st`, `co`, `br`, `ci`, `lg`), sane defaults (`main` as default branch, `osxkeychain` credential helper). Supports a `~/.gitconfig.local` include for per-machine overrides (e.g. a work email) — gitignored, same idea as `lib/local.zsh` on the zsh side. |
 | **tmux** | `tmux/tmux.conf` — mouse mode, vi copy-mode keys, big scrollback, minimal status bar. |
-| **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, including security/pentesting tooling and personal apps. Tracked for reproducibility, but only installed if you say yes at the `install.sh` prompt, or run it explicitly: `brew bundle --file=brew/Brewfile.personal`. Keep work-laptop-unsafe stuff out of the core file. Set `SKIP_BREW=1` to skip this step entirely. |
+| **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`, `zoxide`, `fzf`, `eza`, `fd`, `ripgrep`, `bat`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, including security/pentesting tooling and personal apps. Tracked for reproducibility, but only installed if you say yes at the `install.sh` prompt, or run it explicitly: `brew bundle --file=brew/Brewfile.personal`. Keep work-laptop-unsafe stuff out of the core file. Set `SKIP_BREW=1` to skip this step entirely. |
 | **macOS defaults** | `macos/defaults.sh` — Finder (show hidden files/extensions, path+status bar), fast key repeat, tap-to-click, disabled natural (reversed) scrolling, Dock auto-hide, screenshots to `~/Screenshots`. Never runs automatically; `install.sh` prompts, or run it directly any time: `./macos/defaults.sh`. |
 
 ## Font setup
@@ -102,8 +103,11 @@ lib/
   01-plugins.zsh     # oh-my-zsh plugin list
   02-fpath.zsh       # fpath additions needed before oh-my-zsh's compinit
   10-path.zsh        # PATH for dev tools (Go, PHP, Java/JDK, ~/.local/bin)
-  11-completions.zsh # nvm, Google Cloud SDK
-  20-aliases.zsh     # personal aliases
+  11-completions.zsh # zoxide, fzf, nvm, Google Cloud SDK
+  12-history.zsh     # HISTFILE/HISTSIZE/SAVEHIST + history dedup options
+  13-shell-options.zsh # AUTOCD, NOBEEP, NUMERIC_GLOB_SORT
+  14-bindings.zsh    # custom keybindings (history-substring-search)
+  20-aliases.zsh     # personal aliases + eza/bat replacements for ls/cat
   local.zsh          # gitignored — machine-only overrides, if ever needed
 terminal/
   solarized-dark.itermcolors  # iTerm2 color preset, import manually

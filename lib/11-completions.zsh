@@ -1,6 +1,12 @@
 # Shell integrations / completions for dev tools. Guarded so a machine
 # missing one of these tools just skips that block.
 
+# --- zoxide (smarter cd, `z`/`zi`) --------------------------------------
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+
+# --- fzf (fuzzy finder: Ctrl+R history, Ctrl+T files, Alt+C cd) ---------
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+
 # --- nvm -------------------------------------------------------------
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
