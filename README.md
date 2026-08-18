@@ -13,6 +13,7 @@ cd dotfiles
 
 - [What `install.sh` does](#what-installsh-does)
 - [What's included](#whats-included)
+- [Shell tool cheatsheet](#shell-tool-cheatsheet)
 - [Font setup](#font-setup)
 - [Layout](#layout)
 - [Updating](#updating)
@@ -42,6 +43,46 @@ re-links.
 | **tmux** | `tmux/tmux.conf` — mouse mode, vi copy-mode keys, big scrollback, minimal status bar. |
 | **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`, `zoxide`, `fzf`, `eza`, `fd`, `ripgrep`, `bat`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, including security/pentesting tooling and personal apps. Tracked for reproducibility, but only installed if you say yes at the `install.sh` prompt, or run it explicitly: `brew bundle --file=brew/Brewfile.personal`. Keep work-laptop-unsafe stuff out of the core file. Set `SKIP_BREW=1` to skip this step entirely. |
 | **macOS defaults** | `macos/defaults.sh` — Finder (show hidden files/extensions, path+status bar), fast key repeat, tap-to-click, disabled natural (reversed) scrolling, Dock auto-hide, screenshots to `~/Screenshots`. Never runs automatically; `install.sh` prompts, or run it directly any time: `./macos/defaults.sh`. |
+
+## Shell tool cheatsheet
+
+Open a new terminal (or `exec zsh`) after pulling these changes so the config in `lib/` actually loads.
+
+**zoxide — smarter `cd`**
+- `z <partial-name>` — jump to a frecency-ranked match, e.g. `z proj` after you've `cd`'d into `~/dev/big-project` a few times.
+- `z foo bar` — multiple fragments narrow the match.
+- `zi <partial-name>` — same, but opens an fzf picker when more than one match is plausible.
+- It only knows directories you've already `cd`'d into normally — needs a bit of regular use to build up history.
+
+**fzf — fuzzy finder** (bound in `lib/11-completions.zsh`)
+- `Ctrl+R` — fuzzy-search shell history instead of pressing ↑ repeatedly.
+- `Ctrl+T` — fuzzy-search files/dirs under the cwd, inserts the picked path at the cursor.
+- `Alt+C` — fuzzy-search subdirectories and `cd` straight into the pick.
+- Type to filter, arrows to move, `Enter` to select, `Esc` to cancel.
+
+**eza — replaces `ls`** (aliased in `lib/20-aliases.zsh`)
+- `ls` — grouped-directories-first listing.
+- `ll` — long format with a git status column.
+- `la` — long format, includes hidden files.
+- `lt` — 2-level tree view.
+
+**bat — replaces `cat`** (aliased)
+- `cat somefile.js` — syntax-highlighted, with line numbers, automatically.
+- `bat -A file` — show non-printable characters, same idea as `cat -A`.
+- `bat --diff` — shows git-diff markers in the gutter inside a git repo.
+
+**fd — `find` replacement** (installed, not aliased — call directly; flags aren't `find`-compatible)
+- `fd pattern` — recursively find files/dirs by name, respecting `.gitignore`.
+- `fd -e md` — only `.md` files.
+- `fd -H pattern` — include hidden files (excluded by default).
+
+**ripgrep (`rg`) — `grep` replacement** (installed, not aliased — call directly)
+- `rg "TODO"` — recursively search file contents, respecting `.gitignore`, much faster than `grep -r`.
+- `rg -i "pattern"` — case-insensitive.
+- `rg -t js "pattern"` — restrict to a file type.
+- `rg -l "pattern"` — list matching filenames only.
+
+`Ctrl+T` in fzf already uses `fd` for its file list and `bat` for the preview pane — that combo works out of the box, no extra config needed.
 
 ## Font setup
 
