@@ -4,8 +4,18 @@
 # --- zoxide (smarter cd, `z`/`zi`) --------------------------------------
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 
-# --- fzf (fuzzy finder: Ctrl+R history, Ctrl+T files, Alt+C cd) ---------
+# --- fzf (fuzzy finder: Ctrl+T files, Alt+C cd) -------------------------
+# Ctrl+R is intentionally handed off to atuin below — it's sourced after
+# this, so its Ctrl+R binding wins over fzf's.
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+
+# --- atuin (SQLite-backed searchable shell history) ---------------------
+# Owns Ctrl+R (overrides fzf's binding above, by load order). Up-arrow is
+# left alone so it stays bound to zsh-history-substring-search (see
+# lib/14-bindings.zsh) instead of atuin's own inline search.
+# Config/data live outside this repo (~/.config/atuin, ~/.local/share/atuin)
+# and aren't tracked here, same as any other machine-local state.
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"
 
 # --- nvm -------------------------------------------------------------
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
