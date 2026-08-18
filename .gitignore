@@ -1,0 +1,4 @@
+lib/local.zsh
+*.pre-zsh-config.bak
+.DS_Store
+_to_delete/

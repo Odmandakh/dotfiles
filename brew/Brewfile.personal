@@ -1,0 +1,51 @@
+# Personal Brewfile — everything else installed on this machine, tracked
+# here so it's reproducible, but never applied automatically. Run it
+# explicitly with:
+#
+#   brew bundle --file=brew/Brewfile.personal
+#
+# or answer "yes" when ./install.sh asks. Not meant for a locked-down work
+# laptop — this is where extra runtimes and personal apps live,
+# deliberately kept out of the core Brewfile.
+
+# --- libraries / build deps ---------------------------------------------
+brew "openssl@3"
+brew "readline"
+brew "sqlite"
+brew "xz"
+brew "cmake"
+brew "curl"
+brew "freetds"
+brew "unbound"
+brew "gnutls"
+brew "libfido2"
+brew "libomp"
+brew "zlib"
+brew "openblas"
+brew "pillow"
+brew "pkgconf"
+brew "ninja"
+
+# --- languages / runtimes ------------------------------------------------
+brew "bun"
+brew "node"
+brew "node@18"
+brew "php"
+brew "pyenv"
+brew "python@3.11"
+brew "python@3.12"
+
+# --- infra / cloud tooling -------------------------------------------
+brew "aws-sam-cli"
+brew "maven"
+brew "terraform"
+brew "mysql"
+brew "mysql-client"
+brew "inetutils"
+brew "nmap"
+
+# --- apps ------------------------------------------------------------
+cask "meld"
+cask "rar"
+cask "stats"
+cask "zed"

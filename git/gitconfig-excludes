@@ -1,0 +1,8 @@
+# Global gitignore — symlinked by ./install.sh to ~/.gitconfig-excludes,
+# referenced by core.excludesfile in git/gitconfig. Keep this to OS/editor
+# cruft that has no business in any project's own .gitignore; anything
+# project-specific belongs in that project's .gitignore instead.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

@@ -1,0 +1,9 @@
+# Core Brewfile — installed on every machine by ./install.sh, no prompt.
+# Keep this to tools you genuinely want everywhere, including a locked-down
+# work laptop. Anything more specific (security tooling, apps, extra
+# runtimes) belongs in Brewfile.personal instead, which is opt-in.
+
+brew "git"
+brew "gh"
+brew "jq"
+brew "openjdk@21" # matches lib/10-path.zsh's JAVA_HOME detection

@@ -1,0 +1,46 @@
+# CTF/pentest Brewfile — the Homebrew-installable subset of
+# github.com/Odmandakh/OSX-CTF-Ready. Not applied automatically by
+# install.sh; run it explicitly when gearing up for a CTF:
+#
+#   brew bundle --file=brew/Brewfile.ctf
+#
+# Non-Homebrew parts of that setup (wordlists, pipx tools like CrackMapExec
+# and pwncat, wget'd priv-esc scripts/reverse shells) aren't Brewfile
+# material — run OSX-CTF-Ready's own install.sh for those. Never meant for
+# a work laptop, same reasoning as Brewfile.personal.
+
+tap "wpscanteam/tap"
+
+# --- recon / scanning --------------------------------------------------
+brew "nmap"
+brew "gobuster"
+brew "nikto"
+brew "wpscanteam/tap/wpscan"
+
+# --- exploitation --------------------------------------------------
+# metasploit: Homebrew cask, not a formula. Also deprecated upstream —
+# fails the macOS Gatekeeper check and is scheduled to be disabled
+# 2026-09-01. Works today; expect to need another install method soon
+# (e.g. the official Nightly Installer from metasploit.com).
+cask "metasploit"
+brew "exploitdb"
+brew "sqlmap"
+
+# --- cracking ------------------------------------------------------
+brew "john"
+brew "hashcat"
+brew "hydra"
+brew "aircrack-ng"
+
+# --- analysis --------------------------------------------------------
+brew "ghidra"
+brew "wireshark"
+brew "binwalk"
+brew "exiftool"
+
+# --- protocols / infra -----------------------------------------------
+brew "samba"
+
+# --- web app testing (GUI) --------------------------------------------
+cask "burp-suite"
+cask "zap"

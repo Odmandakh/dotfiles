@@ -1,0 +1,38 @@
+# ~/.gitconfig — symlinked by ./install.sh.
+
+[user]
+	name = dom
+	email = coding.achess@gmail.com
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[color]
+	ui = auto
+
+[core]
+	editor = vim
+	excludesfile = ~/.gitconfig-excludes
+
+[credential]
+	helper = osxkeychain
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --graph --oneline --decorate --all
+
+# Per-machine overrides (work email, a different credential helper, etc.) —
+# gitignored, only exists if a machine ever needs one. Same pattern as
+# lib/local.zsh for the zsh side.
+[include]
+	path = ~/.gitconfig.local
