@@ -19,9 +19,9 @@ info() { printf '\033[1;34m==>\033[0m %s\n' "$1"; }
 info "Finder"
 # Show the path bar and status bar at the bottom of Finder windows.
 defaults write com.apple.finder ShowPathbar -bool false
-defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowStatusBar -bool false
 # Show all filename extensions, not just the ones Finder feels like.
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool false
 # Show hidden (dotfile) files.
 defaults write com.apple.finder AppleShowAllFiles -bool false
 # Show the full path in the Finder window title bar.
