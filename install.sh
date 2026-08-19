@@ -175,6 +175,18 @@ elif [ "$(uname -s)" = "Darwin" ]; then
   else
     info "Skipping brew/Brewfile.personal — run 'brew bundle --file=brew/Brewfile.personal' yourself later if you want it."
   fi
+
+  install_ctf="${INSTALL_CTF_BREW:-}"
+  if [ -z "$install_ctf" ] && [ -t 0 ]; then
+    read -r -p "Also install brew/Brewfile.ctf (pentest/CTF tooling — never on a work laptop)? [y/N] " reply
+    [[ "$reply" =~ ^[Yy]$ ]] && install_ctf=1
+  fi
+  if [ "$install_ctf" = "1" ]; then
+    info "Installing brew/Brewfile.ctf"
+    brew bundle --file="$DOTFILES_DIR/brew/Brewfile.ctf"
+  else
+    info "Skipping brew/Brewfile.ctf — run 'brew bundle --file=brew/Brewfile.ctf' yourself later if you want it."
+  fi
 else
   info "Not macOS — skipping Homebrew/Brewfile step."
 fi

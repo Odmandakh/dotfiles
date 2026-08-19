@@ -41,7 +41,7 @@ re-links.
 | **Solarized** | A terminal color scheme (not a zsh theme), so it pairs with agnoster rather than replacing it. Vendored at `terminal/solarized-dark.itermcolors` / `terminal/solarized-light.itermcolors` (from [mbadolato/iTerm2-Color-Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)). Import one into iTerm2 manually: **Preferences > Profiles > Colors > Color Presets > Import...**. |
 | **Git** | `git/gitconfig` — identity, aliases (`st`, `co`, `br`, `ci`, `lg`), sane defaults (`main` as default branch, `osxkeychain` credential helper). Supports a `~/.gitconfig.local` include for per-machine overrides (e.g. a work email) — gitignored, same idea as `lib/local.zsh` on the zsh side. |
 | **tmux** | `tmux/tmux.conf` — mouse mode, vi copy-mode keys, big scrollback, minimal status bar. |
-| **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`, `zoxide`, `fzf`, `eza`, `fd`, `ripgrep`, `bat`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, including security/pentesting tooling and personal apps. Tracked for reproducibility, but only installed if you say yes at the `install.sh` prompt, or run it explicitly: `brew bundle --file=brew/Brewfile.personal`. Keep work-laptop-unsafe stuff out of the core file. Set `SKIP_BREW=1` to skip this step entirely. |
+| **Homebrew** | `brew/Brewfile` — core (`git`, `gh`, `jq`, `openjdk@21`, `zoxide`, `fzf`, `eza`, `fd`, `ripgrep`, `bat`), installed on every machine, no prompt. `brew/Brewfile.personal` — everything else on this machine, personal apps and extra runtimes. `brew/Brewfile.ctf` — the Homebrew-installable subset of [OSX-CTF-Ready](https://github.com/Odmandakh/OSX-CTF-Ready) (nmap, metasploit, ghidra, wireshark, hashcat, etc.) for gearing up for a CTF; the non-Homebrew parts of that setup (wordlists, `pipx` tools, wget'd scripts) live in that repo, not here. Both `.personal` and `.ctf` are tracked for reproducibility but only installed if you say yes at the `install.sh` prompt, or run explicitly (`brew bundle --file=brew/Brewfile.personal` / `.ctf`) — never on a work laptop. Set `SKIP_BREW=1` to skip the whole Homebrew step. |
 | **macOS defaults** | `macos/defaults.sh` — Finder (show hidden files/extensions, path+status bar), fast key repeat, tap-to-click, disabled natural (reversed) scrolling, Dock auto-hide, screenshots to `~/Screenshots`. Never runs automatically; `install.sh` prompts, or run it directly any time: `./macos/defaults.sh`. |
 
 ## Shell tool cheatsheet
@@ -167,6 +167,7 @@ tmux/
 brew/
   Brewfile             # core packages, installed on every machine
   Brewfile.personal    # everything else, opt-in only
+  Brewfile.ctf         # pentest/CTF tooling, opt-in only, never on a work laptop
 macos/
   defaults.sh          # macOS system preferences, opt-in only
 install.sh
