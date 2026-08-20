@@ -43,9 +43,10 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 info "Scrolling"
-# Disable "natural" (reversed) scrolling — scroll down moves the page down,
-# scroll up moves it up, like a traditional mouse wheel.
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+# Enable "natural" scrolling — content moves with your fingers, like a
+# touchscreen (scroll down with two fingers moves the page up). This is
+# macOS's own default on a fresh install.
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
 
 info "Dock"
 # Auto-hide, and remove the show/hide delay so it doesn't feel sluggish.
