@@ -28,3 +28,7 @@ unset _dotfile
 # Machine-local overrides — never committed, only exists if a machine
 # needs a one-off tweak that shouldn't apply everywhere else.
 [ -f "$DOTFILES_DIR/lib/local.zsh" ] && source "$DOTFILES_DIR/lib/local.zsh"
+
+VAULT_ADDR=https://vault.in:8200
+VAULT_DISABLE_SSL_VALIDATION=true
+VAULT_TOKEN=

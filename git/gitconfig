@@ -1,8 +1,8 @@
 # ~/.gitconfig — symlinked by ./install.sh.
 
 [user]
-	name = dom
-	email = coding.achess@gmail.com
+	name = Dom
+	email = odmandakh@mezorn.com
 
 [init]
 	defaultBranch = main
@@ -36,3 +36,8 @@
 # lib/local.zsh for the zsh side.
 [include]
 	path = ~/.gitconfig.local
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
